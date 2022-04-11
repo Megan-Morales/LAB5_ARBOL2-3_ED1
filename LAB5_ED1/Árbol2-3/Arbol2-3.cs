@@ -16,7 +16,7 @@ namespace LAB5_ED1.Árbol2_3
 
         /*==============================================MÉTODOS FUNDAMENTALES==============================================*/
         //MÉTODOS DE INSERCIÓN.
-        public void insertarEnArbol(T valor) //Sera método recursivo.
+        public void insertarEnArbol(T valor)
         {
             Nodo2_3<T> nodo = new Nodo2_3<T>(valor);
             if (raiz == null)
@@ -36,7 +36,7 @@ namespace LAB5_ED1.Árbol2_3
             }
         }
 
-        private Nodo2_3<T> insertar_En_Pagina(Nodo2_3<T> nodoNuevo, Pagina<T> pagina) //Método para 
+        private Nodo2_3<T> insertar_En_Pagina(Nodo2_3<T> nodoNuevo, Pagina<T> pagina) //Método para crear página, para desplazarme entre páginas
         {
             if (pagina.hoja)
             {
