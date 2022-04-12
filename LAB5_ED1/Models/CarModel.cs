@@ -11,6 +11,8 @@ namespace LAB5_ED1.Models
     {
 
         [Required]
+        [MaxLength(6)]
+        [MinLength(1)]
         public int Placa { get; set; }
 
         [Required]

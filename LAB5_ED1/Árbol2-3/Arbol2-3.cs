@@ -44,7 +44,7 @@ namespace LAB5_ED1.Árbol2_3
                 //Esta parte es para insertarEnArbol el nodo en la página que sea hoja.
                 pagina.insertarEnPagina(nodoNuevo);
                 //Este es un if, básicamente es la parte que compara si se ha alcanzado el máximo de elementos en la hoja.
-                //Aquí hacer un return
+                return (pagina.contador == orden_arbol) ? dividir(pagina) : null;
             }
             else //Si no es una hoja la página
             {
@@ -88,12 +88,55 @@ namespace LAB5_ED1.Árbol2_3
 
         private Nodo2_3<T> dividir(Pagina<T> pagina) //Este método es el encargado de dividir la página recursivamente.
         {
-            return null;
+            T valorNodoDivisor = default(T);
+            Nodo2_3<T> temp, nodoGenerado;
+            Nodo2_3<T> nodoActual = pagina.primero;
+            Pagina<T> rderecha = new Pagina<T>();
+            Pagina<T> rizquierda = new Pagina<T>();
+
+            int cont = 0;
+            while (nodoActual != null)
+            {
+                cont++;
+                //implementacion para dividir unicamente ramas de 3 nodos
+                if (cont < 2)
+                { // Para los nodos que se van a la izquierda.
+                    temp = new Nodo2_3<T>(nodoActual.valor);
+                    temp.hijoIzq = nodoActual.hijoIzq;
+                    if (cont == 1)
+                    {
+                        temp.hijoDer = nodoActual.siguiente.hijoIzq;
+                    }
+                    else
+                    {
+                        temp.hijoDer = nodoActual.hijoDer; //este podría ser null
+                    }
+                    //si la pagina posee hijos quiere decir que no es una hoja
+                    if (temp.hijoDer != null && temp.hijoIzq != null)
+                    {
+                        rizquierda.hoja = false;
+                    }
+                    rizquierda.insertarEnPagina(temp);
+
+                }
+                else if (cont == 2)
+                {
+                    valorNodoDivisor = nodoActual.valor;
+                }
+                else
+                { // Para los nodos que se van a la derecha.
+                    temp = new Nodo2_3<T>(nodoActual.valor, nodoActual.hijoIzq, nodoActual.hijoDer);
+                    //si la rama posee ramas deja de ser hoja
+                    if (temp.hijoDer != null && temp.hijoIzq != null)
+                    {
+                        rderecha.hoja = false;
+                    }
+                    rderecha.insertarEnPagina(temp);
+                }
+                nodoActual = nodoActual.siguiente;
+            }
+            nodoGenerado = new Nodo2_3<T>(valorNodoDivisor, rizquierda, rderecha);
+            return nodoGenerado;
         }
-
-
-
-
-
     }
 }
