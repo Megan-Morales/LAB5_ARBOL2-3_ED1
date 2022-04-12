@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LAB5_ED1.Árbol2_3
 {
-    public class Arbol2_3<T> where T : IComparable<T>
+    public class Arbol2_3<T> where T : IComparable
     {
         readonly int orden_arbol = 3; //Esto se puede modificar según el tipo de árbol para el 2-3 su orden es de 3 ya que puede tener máximo 3 conexiones.
         Pagina<T> raiz;

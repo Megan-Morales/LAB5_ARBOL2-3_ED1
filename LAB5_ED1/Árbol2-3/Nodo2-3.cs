@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LAB5_ED1.Árbol2_3
 {
-    public class Nodo2_3 <T> where T : IComparable<T>
+    public class Nodo2_3 <T> where T : IComparable
     {
         public T valor; //->Valor/ clave 
         //Apuntadores

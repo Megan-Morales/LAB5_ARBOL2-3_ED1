@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using LAB5_ED1.Helpers;
 
 namespace LAB5_ED1.Models
 {
-    public class CarModel
+    public class CarModel : IComparable
     {
+
         [Required]
-        public string Placa { get; set; }
+        public int Placa { get; set; }
 
         [Required]
         public string Color { get; set; }
@@ -22,6 +24,16 @@ namespace LAB5_ED1.Models
         public int Latitud { get; set; }
         public int Longitud { get; set; }
 
+        public static bool Guardar(CarModel model)
+        {
+            Singleton.Instance.carList.insertarEnArbol(model);
+            return true;
+        }
 
+        public int CompareTo(object obj)
+        {
+            return this.Placa - ((CarModel)obj).Placa;
+        }
+ 
     }
 }
