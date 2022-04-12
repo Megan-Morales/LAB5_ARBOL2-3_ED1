@@ -21,7 +21,8 @@ namespace LAB5_ED1.Árbol2_3
             Nodo2_3<T> nodo = new Nodo2_3<T>(valor);
             if (raiz == null)
             {
-                raiz = new Pagina<T>();
+                raiz = new Pagina<T>(); //si mi árbol está vacio, creo una nueva página
+                raiz.insertarEnPagina(nodo);
             }
             else
             {
