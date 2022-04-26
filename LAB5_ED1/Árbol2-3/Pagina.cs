@@ -1,13 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 
 namespace LAB5_ED1.Árbol2_3
 {
+
     public class Pagina<T> where T : IComparable   //mi pagina sería el nodo que encapsula a mis otros nodos
     {
+
+
         public Boolean hoja;//identificar si es una hoja
         public int contador;//identificar la cantidad de elementos que tiene la pagina
         public Nodo2_3<T> primero;
@@ -20,7 +20,7 @@ namespace LAB5_ED1.Árbol2_3
         }
 
         //Método de inserción en página
-        public void insertarEnPagina(Nodo2_3<T> nuevo)
+        public void InsertarEnPagina(Nodo2_3<T> nuevo)
         {
             if (primero == null)//si la página está vacía
             {
@@ -32,8 +32,9 @@ namespace LAB5_ED1.Árbol2_3
             {
                 //recorrer e insertarEnPagina
                 Nodo2_3<T> aux = primero;
-                while(aux != null) //recorrer los nodos dentro de la página hasta que sea el último
+                while (aux != null) //recorrer los nodos dentro de la página hasta que sea el último
                 {
+
                     if (aux.valor.CompareTo(nuevo.valor) == 0) //si el valor a insertar ya existe en el árbol
                     {
                         //agregar lo de throw exception
@@ -67,7 +68,8 @@ namespace LAB5_ED1.Árbol2_3
                                 contador++;
                                 break;
                             }
-                        } else if (aux.siguiente == null) //insertar en página al final
+                        }
+                        else if (aux.siguiente == null) //insertar en página al final
                         {
                             aux.siguiente = nuevo;
                             nuevo.anterior = aux;

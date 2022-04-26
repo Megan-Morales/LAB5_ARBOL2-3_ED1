@@ -4,9 +4,16 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
+<h1>Agregar Carro</h1>
+<br />
+<form asp-controller="Car" asp-action="Index" method="post" enctype="multipart/form-data">
+    <input type="file" name="file" />
+    <br />
+    <br />
+    <button type="submit"> Cargar</button>
+    <hr />
+</form>
 
-<h4>CarModel</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -28,9 +35,14 @@
                 <span asp-validation-for="Propietario" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Coordenadas" class="control-label"></label>
-                <input asp-for="Coordenadas" class="form-control" />
-                <span asp-validation-for="Coordenadas" class="text-danger"></span>
+                <label asp-for="Latitud" class="control-label"></label>
+                <input asp-for="Latitud" class="form-control" />
+                <span asp-validation-for="Latitud" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Longitud" class="control-label"></label>
+                <input asp-for="Longitud" class="form-control" />
+                <span asp-validation-for="Longitud" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

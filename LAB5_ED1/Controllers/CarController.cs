@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using CsvHelper;
+using LAB5_ED1.Árbol2_3;
+using LAB5_ED1.Helpers;
+using LAB5_ED1.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using LAB5_ED1.Models;
+using System.Globalization;
+using System.IO;
+
 
 namespace LAB5_ED1.Controllers
 {
@@ -13,7 +16,7 @@ namespace LAB5_ED1.Controllers
         // GET: CarController
         public ActionResult Index()
         {
-            return View();
+            return View(Singleton.Instance.carList);
         }
 
         // GET: CarController/Details/5
@@ -37,10 +40,11 @@ namespace LAB5_ED1.Controllers
             {
                 CarModel.Guardar(new CarModel
                 {
-                    Color= collection["Color"],
-                    Propietario = collection["Apellidos"],
-                    Placa= int.Parse(collection["Placa"]),
-                    Coordenadas= collection["Coordenadas"],
+                    Placa = int.Parse(collection["Placa"]),
+                    Color = collection["Color"],
+                    Propietario = collection["Propietario"],
+                    Latitud = int.Parse(collection["Latitud"]),
+                    Longitud = int.Parse(collection["Longitud"]),
 
                 });
                 return RedirectToAction(nameof(Index));
@@ -91,6 +95,54 @@ namespace LAB5_ED1.Controllers
             {
                 return View();
             }
+        }
+
+        //leer csv
+        [HttpGet]
+        public IActionResult Index(Arbol2_3<CarModel> clients = null)
+        {
+            clients = clients == null ? new Arbol2_3<CarModel>() : clients;
+            return View(Singleton.Instance.carList);
+        }
+
+        [HttpPost]
+        public IActionResult Index(IFormFile file, [FromServices] IHostingEnvironment hostingEnvironment)
+        {
+            // Upload CSV 
+            string fileName = $"{ hostingEnvironment.WebRootPath}\\files\\{file.FileName}";
+            using (FileStream fileStream = System.IO.File.Create(fileName))
+            {
+                file.CopyTo(fileStream);
+                fileStream.Flush();
+            }
+            //
+
+            var clients = this.GetClientList(file.FileName);
+            return Index(clients);
+        }
+
+        private Arbol2_3<CarModel> GetClientList(string fileName)
+        {
+            Arbol2_3<CarModel> client = new Arbol2_3<CarModel>(); //modificado aqui tambien 
+           
+            // Read CSV
+            var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}" + "\\" + fileName;
+            using (var reader = new StreamReader(path))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                csv.Read();
+                csv.ReadHeader();
+                while (csv.Read())
+                {
+                    var clients = csv.GetRecord<CarModel>(); //modificado aqui
+
+                    Singleton.Instance.carList.InsertarEnArbol(clients);
+                 
+                }
+            }
+            
+            return client;
+
         }
     }
 }
