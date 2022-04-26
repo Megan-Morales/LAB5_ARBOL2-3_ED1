@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using LAB5_ED1.Helpers;
+using System;
+using System.Collections;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
-using LAB5_ED1.Helpers;
 
 namespace LAB5_ED1.Models
 {
@@ -22,13 +20,13 @@ namespace LAB5_ED1.Models
         public string Propietario { get; set; }
 
         [Required]
-        public string Coordenadas { get; set; }
         public int Latitud { get; set; }
+        [Required]
         public int Longitud { get; set; }
 
         public static bool Guardar(CarModel model)
         {
-            Singleton.Instance.carList.insertarEnArbol(model);
+            Singleton.Instance.carList.InsertarEnArbol(model);
             return true;
         }
 
@@ -36,6 +34,9 @@ namespace LAB5_ED1.Models
         {
             return this.Placa - ((CarModel)obj).Placa;
         }
- 
+
+
+        
     }
+    //update 
 }
