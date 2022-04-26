@@ -14,4 +14,8 @@
     <Folder Include="wwwroot\files\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Arboles multiamino\Arboles-multicamino.csproj" />
+  </ItemGroup>
+
 </Project>
