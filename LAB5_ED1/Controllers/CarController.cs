@@ -31,6 +31,53 @@ namespace LAB5_ED1.Controllers
             return View();
         }
 
+        public ActionResult Busqueda()
+        {
+            return View(new CarModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Busqueda(IFormCollection collection)
+        {
+            try
+            {
+                
+                int parametro = (int.Parse(collection["Placa"]));
+                CarModel carro_a_buscar = new CarModel();
+                carro_a_buscar.Placa = parametro;
+
+                
+                return View(Singleton.Instance.carList.buscarNodo_porPlaca(carro_a_buscar));
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+        public ActionResult BusquedaA()
+        {
+            //formulario para busquedas
+            return View(new CarModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult BusquedaA(IFormCollection collection)
+        {
+            try
+            {
+
+
+                return View();
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
         // POST: CarController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -124,7 +171,7 @@ namespace LAB5_ED1.Controllers
         private Arbol2_3<CarModel> GetClientList(string fileName)
         {
             Arbol2_3<CarModel> client = new Arbol2_3<CarModel>(); //modificado aqui tambien 
-           
+
             // Read CSV
             var path = $"{Directory.GetCurrentDirectory()}{@"\wwwroot\files"}" + "\\" + fileName;
             using (var reader = new StreamReader(path))
@@ -137,10 +184,10 @@ namespace LAB5_ED1.Controllers
                     var clients = csv.GetRecord<CarModel>(); //modificado aqui
 
                     Singleton.Instance.carList.InsertarEnArbol(clients);
-                 
+
                 }
             }
-            
+
             return client;
 
         }
