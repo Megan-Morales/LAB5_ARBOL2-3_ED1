@@ -177,24 +177,37 @@ namespace LAB5_ED1.Árbol2_3
         }
 
         //==================================================MÉTODOS DE RECORRIDOS================================================
-        private void InOrder(Pagina<T> padre, ref ColaRecorrido<T> queue)
+        private void RecorridoAmplitud(Pagina<T> padre, ref ColaRecorrido<T> queue)
         {
-
             if (padre != null)
             {
-                
-
+                ColaRecorrido<Pagina<T>> colaPaginas = new ColaRecorrido<Pagina<T>>();
+                colaPaginas.insertElement_AtEnding(raiz);
+                Pagina<T> paginaActual = null;
+                while (colaPaginas.getlength() != 0)
+                {
+                    paginaActual = colaPaginas.extractElement_AtBeggining().getValor();
+                    //Recorremos todos los nodos de la pagina actual y encolamos las paginas de cada nodo.
+                    Nodo2_3<T> nodoActual = paginaActual.primero;
+                    while (nodoActual != null)
+                    {
+                        queue.insertElement_AtEnding(nodoActual.valor);
+                        if (nodoActual.hijoIzq != null) colaPaginas.insertElement_AtEnding(nodoActual.hijoIzq);
+                        if (nodoActual.hijoDer != null) colaPaginas.insertElement_AtEnding(nodoActual.hijoDer);
+                        nodoActual = nodoActual.siguiente;
+                    }
+                }
             }
             return;
         }
         public IEnumerator<T> GetEnumerator()
         {
             var queue = new ColaRecorrido<T>();
-            InOrder(raiz, ref queue);
+            RecorridoAmplitud(raiz, ref queue);
 
-            while (!queue.ColaVacia())
+            while (!(queue.getlength()==0))
             {
-                yield return queue.DesEncolar();
+                yield return queue.extractElement_AtBeggining().getValor();
             }
 
         }
