@@ -144,6 +144,39 @@ namespace LAB5_ED1.Árbol2_3
             return nodoGenerado;
         }
 
+        //==================================================MÉTODOS DE BÚSQUEDA==================================================
+        public T buscarNodo_porPlaca(T valorBuscado)
+        {
+            return buscarNodo_porPlaca(raiz, valorBuscado);
+        }
+
+        private T buscarNodo_porPlaca(Pagina<T> paginaActual, T valorBuscado)
+        {
+            if (paginaActual != null)
+            {
+                //recorrer los hijos de cada clave
+                Nodo2_3<T> nodoActual = paginaActual.primero;
+                while (nodoActual != null)
+                {
+                    if (valorBuscado.CompareTo(nodoActual.valor) == 0)
+                    {
+                        return nodoActual.valor;
+                    }
+                    else if (valorBuscado.CompareTo(nodoActual.valor) < 0)
+                    { // Si el valor buscado es menor al del nodo actual.
+                        return buscarNodo_porPlaca(nodoActual.hijoIzq, valorBuscado);
+                    }
+                    else if (nodoActual.siguiente == null)
+                    { //Si llego al último nodo ahí si debería irse por la derecha.
+                        return buscarNodo_porPlaca(nodoActual.hijoDer, valorBuscado);
+                    }
+                    nodoActual = nodoActual.siguiente;
+                }
+            }
+            return default(T);
+        }
+
+        //==================================================MÉTODOS DE RECORRIDOS================================================
         private void InOrder(Pagina<T> padre, ref ColaRecorrido<T> queue)
         {
 
