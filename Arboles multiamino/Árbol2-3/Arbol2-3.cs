@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+
 namespace LAB5_ED1.Árbol2_3
 {
     public class Arbol2_3<T> : IEnumerable, IEnumerable<T> where T : IComparable
@@ -176,7 +177,7 @@ namespace LAB5_ED1.Árbol2_3
             }
             return default(T);
         }
-
+        
         //==================================================MÉTODOS DE RECORRIDOS================================================
         private void RecorridoAmplitud(Pagina<T> padre, ref ColaRecorrido<T> queue)
         {

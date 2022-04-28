@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.ComponentModel.DataAnnotations;
+using LAB5_ED1.Árbol2_3;
 
 namespace LAB5_ED1.Models
 {
@@ -10,7 +11,7 @@ namespace LAB5_ED1.Models
 
         [Required]
         [MaxLength(6)]
-        [MinLength(1)]
+        [MinLength(6)]
         public int Placa { get; set; }
 
         [Required]
@@ -35,10 +36,7 @@ namespace LAB5_ED1.Models
         public int CompareTo(object obj)
         {
             return this.Placa - ((CarModel)obj).Placa;
-        }
-
-
-        
+        } 
     }
     //update 
 }
