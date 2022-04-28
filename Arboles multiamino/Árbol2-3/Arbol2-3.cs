@@ -7,21 +7,18 @@ namespace LAB5_ED1.Árbol2_3
 {
     public class Arbol2_3<T> : IEnumerable, IEnumerable<T> where T : IComparable
     {
-        
-
         readonly int orden_arbol = 3; //Esto se puede modificar según el tipo de árbol para el 2-3 su orden es de 3 ya que puede tener máximo 3 conexiones.
 
         Pagina<T> raiz;
         public Arbol2_3() //Contructor de mi árbol
         {
             this.raiz = null;
-
         }
 
         /*==============================================MÉTODOS FUNDAMENTALES==============================================*/
         //MÉTODOS DE INSERCIÓN.
         public void InsertarEnArbol(T valor)
-       {
+        {
             Nodo2_3<T> nodo = new Nodo2_3<T>(valor);
             if (raiz == null)
             {
@@ -206,7 +203,7 @@ namespace LAB5_ED1.Árbol2_3
             var queue = new ColaRecorrido<T>();
             RecorridoAmplitud(raiz, ref queue);
 
-            while (!(queue.getlength()==0))
+            while (!(queue.getlength() == 0))
             {
                 yield return queue.extractElement_AtBeggining().getValor();
             }
