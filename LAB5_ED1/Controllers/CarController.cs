@@ -45,9 +45,6 @@ namespace LAB5_ED1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Busqueda(IFormCollection collection)
         {
-
-            
-
                 int parametro = (int.Parse(collection["Placa"]));
                 CarModel carro_a_buscar = new CarModel();
                 carro_a_buscar.Placa = parametro;
@@ -62,7 +59,42 @@ namespace LAB5_ED1.Controllers
                     return RedirectToAction(nameof(ErrorBusqueda));
 
                 }            
-          
+        }
+
+        public ActionResult Edicion()
+        {
+            return View(new CarModel());
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edicion(IFormCollection collection)
+        {
+            int parametro = (int.Parse(collection["Placa"]));
+            int latitudModificar= (int.Parse(collection["Latitud"]));
+            int longitudModificar = (int.Parse(collection["Longitud"]));
+            CarModel carro_a_buscar = new CarModel();
+            carro_a_buscar.Placa = parametro;
+            CarModel carroModificar = null;
+
+
+            if (Singleton.Instance.carList.buscarNodo_porPlaca(carro_a_buscar) != default)
+            {
+                carroModificar = Singleton.Instance.carList.buscarNodo_porPlaca(carro_a_buscar);
+                carroModificar.Latitud = latitudModificar;
+                carroModificar.Longitud = longitudModificar;
+                return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                return RedirectToAction(nameof(ErrorBusqueda));
+
+            }
+        }
+        public ActionResult EdicionM()
+        {
+            //formulario para busquedas
+            return View(new CarModel());
         }
 
         public ActionResult BusquedaA()
