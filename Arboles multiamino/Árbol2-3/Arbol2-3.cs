@@ -148,6 +148,7 @@ namespace LAB5_ED1.Árbol2_3
         public T buscarNodo_porPlaca(T valorBuscado)
         {
             return buscarNodo_porPlaca(raiz, valorBuscado);
+
         }
 
         private T buscarNodo_porPlaca(Pagina<T> paginaActual, T valorBuscado)

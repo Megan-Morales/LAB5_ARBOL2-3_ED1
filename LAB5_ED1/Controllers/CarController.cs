@@ -24,6 +24,11 @@ namespace LAB5_ED1.Controllers
         {
             return View();
         }
+        //vista para los errores de búsqueda 
+        public ActionResult ErrorBusqueda(int id)
+        {
+            return View();
+        }
 
         // GET: CarController/Create
         public ActionResult Create()
@@ -40,20 +45,24 @@ namespace LAB5_ED1.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Busqueda(IFormCollection collection)
         {
-            try
-            {
-                
+
+            
+
                 int parametro = (int.Parse(collection["Placa"]));
                 CarModel carro_a_buscar = new CarModel();
                 carro_a_buscar.Placa = parametro;
 
-                
-                return View(Singleton.Instance.carList.buscarNodo_porPlaca(carro_a_buscar));
-            }
-            catch
-            {
-                return View();
-            }
+
+                if (Singleton.Instance.carList.buscarNodo_porPlaca(carro_a_buscar) != default)
+                {
+                    return View(Singleton.Instance.carList.buscarNodo_porPlaca(carro_a_buscar));
+                }
+                else
+                {
+                    return RedirectToAction(nameof(ErrorBusqueda));
+
+                }            
+          
         }
 
         public ActionResult BusquedaA()
