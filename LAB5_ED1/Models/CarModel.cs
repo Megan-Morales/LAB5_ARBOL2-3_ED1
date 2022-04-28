@@ -20,8 +20,10 @@ namespace LAB5_ED1.Models
         public string Propietario { get; set; }
 
         [Required]
+        [Range(-90,90)]
         public int Latitud { get; set; }
         [Required]
+        [Range(-180,180)]
         public int Longitud { get; set; }
 
         public static bool Guardar(CarModel model)
